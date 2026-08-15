@@ -11,87 +11,10 @@ const categories = [
   { name: "Tyres", icon: "🛞" },
 ];
 
-const products = [
-  {
-    name: "Toyota Brake Pads",
-    category: "Brake System",
-    price: "KSh 4,500",
-    oldPrice: "KSh 5,500",
-    icon: "🛞",
-    discount: "-18%",
-  },
-  {
-    name: "Nissan Genuine Oil Filter",
-    category: "Service Parts",
-    price: "KSh 1,500",
-    oldPrice: "KSh 1,900",
-    icon: "🔧",
-    discount: "-21%",
-  },
-  {
-    name: "12V Car Battery",
-    category: "Batteries",
-    price: "KSh 12,500",
-    oldPrice: "KSh 14,000",
-    icon: "🔋",
-    discount: "-11%",
-  },
-  {
-    name: "5W-30 Synthetic Engine Oil",
-    category: "Engine Oil",
-    price: "KSh 6,200",
-    oldPrice: "KSh 7,000",
-    icon: "🛢️",
-    discount: "-11%",
-  },
-  {
-    name: "Toyota Suspension Arm",
-    category: "Suspension",
-    price: "KSh 8,500",
-    oldPrice: "KSh 9,800",
-    icon: "⚙️",
-    discount: "-13%",
-  },
-  {
-    name: "Performance Spark Plugs",
-    category: "Engine Parts",
-    price: "KSh 3,600",
-    oldPrice: "KSh 4,200",
-    icon: "🔩",
-    discount: "-14%",
-  },
-  {
-    name: "Premium Air Filter",
-    category: "Service Parts",
-    price: "KSh 1,800",
-    oldPrice: "KSh 2,200",
-    icon: "▣",
-    discount: "-18%",
-  },
-  {
-    name: "All Terrain Tyre",
-    category: "Tyres",
-    price: "KSh 14,500",
-    oldPrice: "KSh 16,000",
-    icon: "⭕",
-    discount: "-9%",
-  },
-];
-
 function LandingPage() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [search, setSearch] = useState("");
   const [cart, setCart] = useState(0);
-
-  const filteredProducts = products.filter((product) =>
-    `${product.name} ${product.category}`
-      .toLowerCase()
-      .includes(search.toLowerCase())
-  );
-
-  const addToCart = () => {
-    setCart((current) => current + 1);
-  };
 
   return (
     <div className="garage-page">
@@ -342,87 +265,7 @@ function LandingPage() {
 
       </section>
 
-      {/* PRODUCTS */}
-      <section className="products section" id="products">
-
-        <div className="container">
-
-          <div className="section-header">
-
-            <div>
-              <span className="section-label">
-                FEATURED PRODUCTS
-              </span>
-
-              <h2>Popular parts & accessories</h2>
-            </div>
-
-            <span className="product-count">
-              {filteredProducts.length} products
-            </span>
-
-          </div>
-
-          <div className="product-grid">
-
-            {filteredProducts.map((product) => (
-
-              <div className="product-card" key={product.name}>
-
-                <span className="discount">
-                  {product.discount}
-                </span>
-
-                <div className="product-image">
-                  {product.icon}
-                </div>
-
-                <div className="product-details">
-
-                  <small>{product.category}</small>
-
-                  <h3>{product.name}</h3>
-
-                  <div className="price-row">
-                    <strong>{product.price}</strong>
-                    <del>{product.oldPrice}</del>
-                  </div>
-
-                  <div className="product-buttons">
-
-                    <button onClick={addToCart}>
-                      Add to Cart
-                    </button>
-
-                    <a
-                      href={`https://wa.me/254700000000?text=${encodeURIComponent(
-                        `Hello AutoPro, I am interested in ${product.name}. Is it available?`
-                      )}`}
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      WhatsApp
-                    </a>
-
-                  </div>
-
-                </div>
-
-              </div>
-
-            ))}
-
-          </div>
-
-          {filteredProducts.length === 0 && (
-            <div className="no-products">
-              No products found.
-            </div>
-          )}
-
-        </div>
-
-      </section>
+     
 
       {/* SERVICES */}
       <section className="services section" id="services">
