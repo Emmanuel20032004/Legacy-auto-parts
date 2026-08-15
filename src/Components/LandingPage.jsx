@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import "./LandingPage.css";
 
 const categories = [
   { name: "Toyota Parts", icon: "🚗" },
