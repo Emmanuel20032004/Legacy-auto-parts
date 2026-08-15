@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import { BrowserRouter, Routes, Route } from 'react-router'
 import ProductPage from './products/ProductPage'
 import ProductList from './products/ProductList'
