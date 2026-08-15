@@ -1,0 +1,42 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "Tie rod",
+      "brand": "Toyota",
+      "category": "Steering",
+      "description": "connects the steering gear box or rack to the wheel's steering knuckle",
+      "price": 6000,
+      "image": "https://cdn11.bigcommerce.com/s-yy5dru1pzg/images/stencil/original/products/830/5110/freedom-off-road-heavy-duty-tie-rod-kit-fo-g105tr-adj__32980.1750170807.jpg"
+    },
+    {
+      "id": 2,
+      "name": "Brake disk",
+      "brand": "Ford",
+      "category": "Brake",
+      "description": "a round metal plate attached to a vehicle's wheel",
+      "price": 15000,
+      "image": "https://i0.wp.com/www.tailwindafrica.com/wp-content/uploads/2021/11/COFUSO-FORI-3494-EST.jpg?fit=519%2C712&ssl=1"
+    },
+    {
+      "id": 3,
+      "name": "Brake caliper",
+      "brand": "Nissan",
+      "category": "Brake",
+      "description": "clamp-like device in a vehicle's disc brake system",
+      "price": 4000,
+      "image": "https://www.bproautoparts.com/static-assets/images/singleProduct/2023/08/bpro%20caliper.jpg"
+    },
+    {
+      "id": 4,
+      "name": "Shock absorbers",
+      "brand": "Subaru",
+      "category": "Suspension",
+      "description": "car suspension parts that control spring bounce and keep tires glued to the road",
+      "price": 12000,
+      "image": "https://www.speedyapollo.ca/wp-content/uploads/2023/07/Shock-absorbers.jpg"
+    }
+  ]
+}
+
+
