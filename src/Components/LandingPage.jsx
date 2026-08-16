@@ -36,7 +36,7 @@ function LandingPage() {
             <img
               src={legacyAutoLogo}
               alt="Legacy Auto"
-              style={{ height: "50px", width: "auto" }}
+              style={{ height: "55px", width: "auto" }}
             />
             <span>Legacy</span><span>Auto</span>
           </a>
