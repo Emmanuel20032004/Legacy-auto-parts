@@ -1,16 +1,56 @@
-# React + Vite
+{/* Neo Mwashi */}
+# LEGACY AUTO PARTS
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A webpage for Legacy auto parts company that deals with Toyota, Ford, Nissan and Subaru car parts. This website offers an easier way to purchase car parts for four common car brands in Kenya.
 
-Currently, two official plugins are available:
+## FEATURES
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- Browse available car parts, filterable by brand, name, and category.
+- View individual product details.
+- Working contact form and contact links.
+- Customers are not required to log in to browse.
+- Separate admin dashboard, restricted to authorized users only..
 
-## React Compiler
+**Admin demo credentials:**
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- Separate Admin dashboard for Authorized users only(login required).
 
-## Expanding the ESLint configuration
+- Admin Email: "emmanuel.admin@legacyauto.test"
+- Admin Password: "LegacyAdmin2026!"
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Admins can add, edit, and delete products, manage users, and update prices.
+
+## TECH STACK
+
+- React 19 + Vite.
+- React Router v8.
+- Tailwind CSS.
+- json-server (simulated backend).
+- Vitest + React Testing Library (testing).
+
+## SETUP 
+1. Install dependencies:
+    - in terminal (NPM INSTALL) 
+2. Start the backend (in one terminal):
+    - in terminal (NPM RUN SEVER)
+3. Start the frontend (in a separate terminal):
+    - in  separate terminal (NPM RUN DEV)
+4. Open the URL shown in your terminal (typically `http://localhost:5173`) in your browser.
+
+## Running Tests
+
+- In terminal (NPX VITEST RUN)
+
+## MISSING FEATURES
+
+- Ability to purchase a product
+- Cart feature not fully implemented
+- 
+
+## FUTURE UPDATES
+
+- Ability for admins to edit current stock levels
+- Improved product view layout
+- More detailed product information
+- Working "add to cart" feature
+- Working payment methods
