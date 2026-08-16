@@ -38,13 +38,14 @@ Admins can add, edit, and delete products, manage users, and update prices.
 4. Open the URL shown in your terminal (typically `http://localhost:5173`) in your browser.
 
 ## Running Tests
+
 - In terminal (NPX VITEST RUN)
 
 ## MISSING FEATURES
 
--Ability to purchase a product
--Cart feature not fully implemented
--
+- Ability to purchase a product
+- Cart feature not fully implemented
+- 
 
 ## FUTURE UPDATES
 
