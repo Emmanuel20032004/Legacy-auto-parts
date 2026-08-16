@@ -6,6 +6,7 @@ import {
   ChevronDown,
   Cog,
   Home,
+  LogOut,
   Pencil,
   PackagePlus,
   Search,
@@ -16,6 +17,8 @@ import {
   X,
   Zap,
 } from "lucide-react";
+import { useNavigate } from "react-router";
+import { adminSessionKey, initialUsers, usersStorageKey } from "../auth/adminAuth.js";
 
 const statCards = [
   { label: "Total sales anually", value: "500,000" },
@@ -23,6 +26,9 @@ const statCards = [
   { label: "Total sales monthly", value: "100,000" },
   { label: "Website logins", value: "3,000" },
 ];
+
+
+const productsStorageKey = "legacy-auto-parts-products";
 
 const initialUsers = [
   {
@@ -118,6 +124,7 @@ const navSections = [
 ];
 
 export function AdminSidebar() {
+  const navigate = useNavigate();
   const [activeItem, setActiveItem] = useState("Dashboard");
   
   const { data: fetchedProducts, loading, error } = useFetch(
@@ -146,6 +153,7 @@ export function AdminSidebar() {
   const [userRoleFilter, setUserRoleFilter] = useState("All");
   const [showAddProduct, setShowAddProduct] = useState(false);
   const [showAddUser, setShowAddUser] = useState(false);
+  const [newUser, setNewUser] = useState({ name: "", phone: "", email: "", password: "", role: "Customer" });
   const [newUser, setNewUser] = useState({
     name: "",
     phone: "",
@@ -309,13 +317,13 @@ export function AdminSidebar() {
 
   const addUser = (event) => {
     event.preventDefault();
-    if (!newUser.name || !newUser.phone || !newUser.email) return;
+    if (!newUser.name || !newUser.phone || !newUser.email || (newUser.role === "Admin" && !newUser.password)) return;
 
     setUsers((currentUsers) => [
       ...currentUsers,
       { ...newUser, id: Date.now() },
     ]);
-    setNewUser({ name: "", phone: "", email: "", role: "Customer" });
+    setNewUser({ name: "", phone: "", email: "", password: "", role: "Customer" });
     setShowAddUser(false);
   };
 
@@ -381,6 +389,18 @@ export function AdminSidebar() {
             );
           })}
         </nav>
+
+        <button
+          type="button"
+          onClick={() => {
+            sessionStorage.removeItem(adminSessionKey);
+            navigate("/admin/login", { replace: true });
+          }}
+          className="mt-6 flex w-full items-center gap-3 rounded px-4 py-3 text-sm font-medium text-[#b0d4e3] transition-colors hover:bg-[#1a3a52]/80 hover:text-white"
+        >
+          <LogOut size={18} />
+          <span>Sign out</span>
+        </button>
       </div>
 
       {/* RIGHT MAIN CONTENT */}
@@ -977,6 +997,11 @@ export function AdminSidebar() {
                     style={{ color: "#f8fafc", WebkitTextFillColor: "#f8fafc" }}
                   />
                 </label>
+                <label className="text-sm text-[#b0d4e3] sm:col-span-2">Password for Admin access
+                  <input required={newUser.role === "Admin"} type="password" value={newUser.password} onChange={(event) => setNewUser({ ...newUser, password: event.target.value })} placeholder="Required for Admin role" className="mt-2 w-full rounded-lg border border-white/20 bg-[#080d10] px-3 py-3 text-[#f8fafc] caret-[#5cd9e0] placeholder:text-[#8aa8b7] outline-none focus:border-[#5cd9e0] focus:ring-1 focus:ring-[#5cd9e0]" style={{ color: "#f8fafc", WebkitTextFillColor: "#f8fafc" }} />
+                </label>
+                <label className="text-sm text-[#b0d4e3] sm:col-span-2">Role
+                  <select value={newUser.role} onChange={(event) => setNewUser({ ...newUser, role: event.target.value })} className="mt-2 w-full rounded-lg border border-white/20 bg-[#080d10] px-3 py-3 text-[#f8fafc] caret-[#5cd9e0] outline-none focus:border-[#5cd9e0] focus:ring-1 focus:ring-[#5cd9e0]" style={{ color: "#f8fafc", WebkitTextFillColor: "#f8fafc" }}>
                 <label className="text-sm text-[#b0d4e3] sm:col-span-2">
                   Role
                   <select
