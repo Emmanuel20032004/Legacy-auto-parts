@@ -1,14 +1,12 @@
 import React, { useState } from "react";
+import { Link } from "react-router";
 
 const categories = [
-  { name: "Toyota Parts", icon: "🚗" },
-  { name: "Nissan Parts", icon: "🚙" },
-  { name: "Ford Parts", icon: "🚘" },
-  { name: "Subaru Parts", icon: "🏎️" },
-  { name: "Brake Parts", icon: "⚙️" },
-  { name: "Engine Parts", icon: "🔧" },
-  { name: "Batteries", icon: "🔋" },
-  { name: "Tyres", icon: "🛞" },
+  { name: "Toyota Parts", icon: "🚗", brand: "Toyota" },
+  { name: "Nissan Parts", icon: "🚙", brand: "Nissan" },
+  { name: "Ford Parts", icon: "🚘", brand: "Ford" },
+  { name: "Subaru Parts", icon: "🏎️", brand: "Subaru" },
+
 ];
 
 function LandingPage() {
@@ -96,9 +94,9 @@ function LandingPage() {
                 About Us
               </a>
 
-              <a href="#products" onClick={() => setMenuOpen(false)}>
+              <Link to="/shop" onClick={() => setMenuOpen(false)}>
                 Products
-              </a>
+              </Link>
 
               <a href="#contact" onClick={() => setMenuOpen(false)}>
                 Contact
@@ -156,9 +154,9 @@ function LandingPage() {
 
             <div className="hero-buttons">
 
-              <a href="#products" className="primary-button">
+              <Link to="/shop" className="primary-button">
                 Shop Parts →
-              </a>
+              </Link>
 
               <a href="#services" className="outline-button">
                 Our Services
@@ -206,15 +204,15 @@ function LandingPage() {
               <h2>Find the right parts for your car</h2>
             </div>
 
-            <a href="#products">View all →</a>
+            <Link to="/shop">View all</Link>
 
           </div>
 
           <div className="category-grid">
 
             {categories.map((category) => (
-              <a
-                href="#products"
+              <Link
+                to={`/shop?brand=${category.brand}`}
                 className="category-card"
                 key={category.name}
               >
@@ -225,7 +223,7 @@ function LandingPage() {
                 <h3>{category.name}</h3>
 
                 <p>Quality products</p>
-              </a>
+              </Link>
             ))}
 
           </div>
@@ -257,9 +255,9 @@ function LandingPage() {
 
           </div>
 
-          <a href="#products" className="white-button">
+          <Link to="/shop" className="white-button">
             Shop Deals →
-          </a>
+          </Link>
 
         </div>
 

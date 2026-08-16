@@ -1,14 +1,26 @@
 import { useState, useEffect } from 'react'
+import { useSearchParams } from 'react-router'
 
 function ProductList() {
     const [products, setProducts] = useState([])
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(null)
     const [searchTerm, setSearchTerm] = useState('')
-    const filteredProducts = products.filter((product) =>
-    product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    product.brand.toLowerCase().includes(searchTerm.toLowerCase())
-    )
+
+    const [searchParams] = useSearchParams()
+    const brandFilter = searchParams.get('brand')
+
+    const filteredProducts = products.filter((product) => {
+        const matchesSearch = 
+            product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            product.brand.toLowerCase().includes(searchTerm.toLowerCase())
+
+        const matchesBrand = brandFilter
+            ? product.brand.toLowerCase() === brandFilter.toLowerCase()
+            : true
+        
+        return matchesSearch && matchesBrand
+    })
 
     useEffect(() => {
         fetch('http://localhost:3000/products')
