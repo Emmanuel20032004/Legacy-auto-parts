@@ -1,12 +1,15 @@
 import React, { useState } from "react";
 import { Link } from "react-router";
+import toyotaLogo from "../assets/toyotaLogo.png";
+import nissanLogo from "../assets/nissanLogo.png";
+import fordLogo from "../assets/fordLogo.png";
+import subaruLogo from "../assets/subaruLogo.png";
 
 const categories = [
-  { name: "Toyota Parts", icon: "🚗", brand: "Toyota" },
-  { name: "Nissan Parts", icon: "🚙", brand: "Nissan" },
-  { name: "Ford Parts", icon: "🚘", brand: "Ford" },
-  { name: "Subaru Parts", icon: "🏎️", brand: "Subaru" },
-
+  { name: "Toyota Parts", icon: toyotaLogo, brand: "Toyota" },
+  { name: "Nissan Parts", icon: nissanLogo, brand: "Nissan" },
+  { name: "Ford Parts", icon: fordLogo, brand: "Ford" },
+  { name: "Subaru Parts", icon: subaruLogo, brand: "Subaru" },
 ];
 
 function LandingPage() {
@@ -16,7 +19,6 @@ function LandingPage() {
 
   return (
     <div className="garage-page">
-
       {/* TOP BAR */}
       <div className="top-bar">
         <div className="container top-bar-content">
@@ -27,9 +29,7 @@ function LandingPage() {
 
       {/* HEADER */}
       <header className="header">
-
         <div className="container header-main">
-
           <a href="#" className="logo">
             <span className="logo-box">AP</span>
             <span>
@@ -48,7 +48,6 @@ function LandingPage() {
           </div>
 
           <div className="header-right">
-
             <a href="tel:+254700000000" className="phone">
               <small>Call us</small>
               <strong>+254 700 000 000</strong>
@@ -65,14 +64,12 @@ function LandingPage() {
             >
               ☰
             </button>
-
           </div>
         </div>
 
         {/* NAVIGATION */}
         <nav className={`navigation ${menuOpen ? "show" : ""}`}>
           <div className="container nav-content">
-
             <button className="category-button">
               ☰ &nbsp; All Categories
             </button>
@@ -111,7 +108,6 @@ function LandingPage() {
             >
               WhatsApp Us
             </a>
-
           </div>
         </nav>
 
@@ -125,21 +121,15 @@ function LandingPage() {
           />
           <button>⌕</button>
         </div>
-
       </header>
 
       {/* HERO */}
       <section className="hero" id="home">
-
         <div className="hero-overlay"></div>
 
         <div className="container hero-content">
-
           <div className="hero-text">
-
-            <span className="red-label">
-              YOUR TRUSTED AUTO PARTNER
-            </span>
+            <span className="red-label">YOUR TRUSTED AUTO PARTNER</span>
 
             <h1>
               Keep Your Car
@@ -148,12 +138,11 @@ function LandingPage() {
             </h1>
 
             <p>
-              Quality spare parts, reliable automotive service and
-              expert support — all in one place.
+              Quality spare parts, reliable automotive service and expert
+              support — all in one place.
             </p>
 
             <div className="hero-buttons">
-
               <Link to="/shop" className="primary-button">
                 Shop Parts →
               </Link>
@@ -161,11 +150,9 @@ function LandingPage() {
               <a href="#services" className="outline-button">
                 Our Services
               </a>
-
             </div>
 
             <div className="hero-stats">
-
               <div>
                 <strong>100%</strong>
                 <span>Genuine Parts</span>
@@ -180,36 +167,25 @@ function LandingPage() {
                 <strong>24/7</strong>
                 <span>WhatsApp Support</span>
               </div>
-
             </div>
-
           </div>
-
         </div>
-
       </section>
 
       {/* CATEGORIES */}
       <section className="categories section" id="categories">
-
         <div className="container">
-
           <div className="section-header">
-
             <div>
-              <span className="section-label">
-                SHOP BY CATEGORY
-              </span>
+              <span className="section-label">SHOP BY CATEGORY</span>
 
               <h2>Find the right parts for your car</h2>
             </div>
 
             <Link to="/shop">View all</Link>
-
           </div>
 
           <div className="category-grid">
-
             {categories.map((category) => (
               <Link
                 to={`/shop?brand=${category.brand}`}
@@ -217,7 +193,7 @@ function LandingPage() {
                 key={category.name}
               >
                 <div className="category-icon">
-                  {category.icon}
+                  <img src={category.icon} alt={category.name} />
                 </div>
 
                 <h3>{category.name}</h3>
@@ -225,23 +201,15 @@ function LandingPage() {
                 <p>Quality products</p>
               </Link>
             ))}
-
           </div>
-
         </div>
-
       </section>
 
       {/* RED PROMOTION */}
       <section className="promotion">
-
         <div className="container promotion-content">
-
           <div>
-
-            <span className="red-label">
-              LIMITED TIME OFFER
-            </span>
+            <span className="red-label">LIMITED TIME OFFER</span>
 
             <h2>
               Save on selected
@@ -249,52 +217,37 @@ function LandingPage() {
               <span>automotive essentials.</span>
             </h2>
 
-            <p>
-              Great prices on selected service and replacement parts.
-            </p>
-
+            <p>Great prices on selected service and replacement parts.</p>
           </div>
 
           <Link to="/shop" className="white-button">
             Shop Deals →
           </Link>
-
         </div>
-
       </section>
-
-     
 
       {/* SERVICES */}
       <section className="services section" id="services">
-
         <div className="container">
-
           <div className="center-heading">
-
-            <span className="section-label">
-              WHAT WE DO
-            </span>
+            <span className="section-label">WHAT WE DO</span>
 
             <h2>More than just spare parts</h2>
 
             <p>
-              Professional automotive solutions designed to keep
-              you safely on the road.
+              Professional automotive solutions designed to keep you safely on
+              the road.
             </p>
-
           </div>
 
           <div className="service-grid">
-
             <div className="service-card">
               <div className="service-icon">🔧</div>
 
               <h3>Auto Repairs</h3>
 
               <p>
-                Professional diagnosis, repair and maintenance
-                for your vehicle.
+                Professional diagnosis, repair and maintenance for your vehicle.
               </p>
 
               <a href="#contact">Learn more →</a>
@@ -306,8 +259,7 @@ function LandingPage() {
               <h3>Routine Service</h3>
 
               <p>
-                Oil changes, filters, brakes and scheduled
-                vehicle maintenance.
+                Oil changes, filters, brakes and scheduled vehicle maintenance.
               </p>
 
               <a href="#contact">Book service →</a>
@@ -319,24 +271,19 @@ function LandingPage() {
               <h3>Parts Sourcing</h3>
 
               <p>
-                Tell us what you need and our team will help
-                you find the right part.
+                Tell us what you need and our team will help you find the right
+                part.
               </p>
 
               <a href="#contact">Ask us →</a>
             </div>
-
           </div>
-
         </div>
-
       </section>
 
       {/* ABOUT */}
       <section className="about section" id="about">
-
         <div className="container about-grid">
-
           <div className="about-photo">
             <div className="about-badge">
               <strong>10+</strong>
@@ -345,20 +292,13 @@ function LandingPage() {
           </div>
 
           <div className="about-text">
+            <span className="section-label">WHY CHOOSE US</span>
 
-            <span className="section-label">
-              WHY CHOOSE US
-            </span>
-
-            <h2>
-              Quality parts. Honest advice.
-              Reliable service.
-            </h2>
+            <h2>Quality parts. Honest advice. Reliable service.</h2>
 
             <p>
-              We help drivers and vehicle owners find dependable
-              parts and professional automotive support without
-              the guesswork.
+              We help drivers and vehicle owners find dependable parts and
+              professional automotive support without the guesswork.
             </p>
 
             <ul>
@@ -371,51 +311,38 @@ function LandingPage() {
             <a href="#contact" className="dark-button">
               Talk to our team →
             </a>
-
           </div>
-
         </div>
-
       </section>
 
       {/* CTA */}
       <section className="contact-cta" id="contact">
-
         <div className="container cta-content">
-
           <div>
-
-            <span className="red-label">
-              NEED A PART?
-            </span>
+            <span className="red-label">NEED A PART?</span>
 
             <h2>Can't find what you're looking for?</h2>
 
             <p>
-              Send us your vehicle model and the part you need.
-              We'll help you check availability.
+              Send us your vehicle model and the part you need. We'll help you
+              check availability.
             </p>
-
           </div>
 
           <a
-            href="https://wa.me/254700000000"
+            href="https://wa.me/+254707177362"
             target="_blank"
             rel="noreferrer"
             className="white-button"
           >
             Chat on WhatsApp →
           </a>
-
         </div>
-
       </section>
 
       {/* FOOTER */}
       <footer className="footer">
-
         <div className="container footer-grid">
-
           <div>
             <a href="#" className="logo footer-logo">
               <span className="logo-box">AP</span>
@@ -425,8 +352,8 @@ function LandingPage() {
             </a>
 
             <p>
-              Your trusted partner for genuine car parts,
-              automotive service and expert support.
+              Your trusted partner for genuine car parts, automotive service and
+              expert support.
             </p>
           </div>
 
@@ -436,6 +363,7 @@ function LandingPage() {
             <a href="#services">Services</a>
             <a href="#products">Products</a>
             <a href="#contact">Contact</a>
+            <Link to="/admin">Admin Dashboard</Link>
           </div>
 
           <div>
@@ -449,30 +377,27 @@ function LandingPage() {
           <div>
             <h4>Contact</h4>
             <p>📍 Nairobi, Kenya</p>
-            <p>☎ +254 700 000 000</p>
-            <p>✉ info@autopro.co.ke</p>
+            <p>☎ +254 707 177 362</p>
+            <p>✉ legacyauto@gmail.com</p>
           </div>
-
         </div>
 
         <div className="copyright">
           <div className="container">
-            © 2026 AutoPro Garage. All rights reserved.
+            © 2026 Legacy Auto Parts. All rights reserved.
           </div>
         </div>
-
       </footer>
 
       {/* FLOATING WHATSAPP */}
       <a
         className="floating-whatsapp"
-        href="https://wa.me/254700000000"
+        href="https://wa.me/+254707177362"
         target="_blank"
         rel="noreferrer"
       >
         ☎
       </a>
-
     </div>
   );
 }
