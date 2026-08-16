@@ -37,10 +37,10 @@ function FormPage() {
         <div className="form-container form-header-inner">
 
           <a href="/" className="form-logo">
-            <span className="form-logo-box">AP</span>
+            <span className="form-logo-box">LA</span>
 
             <span>
-              Auto<span>Pro</span>
+              Legacy<span>Auto</span>
             </span>
           </a>
 
@@ -306,7 +306,7 @@ function FormPage() {
 
               <a
                 className="form-whatsapp"
-                href="https://wa.me/254700000000"
+                href="https://wa.me/+254707177362"
                 target="_blank"
                 rel="noreferrer"
               >
@@ -347,14 +347,14 @@ function FormPage() {
               <h3>Contact</h3>
 
               <p>📍 Nairobi, Kenya</p>
-              <p>☎ +254 700 000 000</p>
-              <p>✉ info@autopro.co.ke</p>
+              <p>☎ +254 707 177 362</p>
+              <p>✉ legacyauto@gmail.com</p>
             </div>
 
           </div>
 
           <div className="form-copyright">
-            © 2026 AutoPro Garage. All rights reserved.
+            © 2026 Legacy Auto Parts. All rights reserved.
           </div>
 
         </div>

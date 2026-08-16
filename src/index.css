@@ -1,6 +1,9 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@config "../tailwind.config.js";
+
+:root {
+  color-scheme: dark;
+}
 
 html {
   scroll-behavior: smooth;
@@ -9,4 +12,19 @@ html {
 body {
   margin: 0;
   padding: 0;
+  background-color: #0f2438;
+  color: #b0d4e3;
+  background-image:
+    radial-gradient(circle at top, rgba(92, 217, 224, 0.18), transparent 35%),
+    linear-gradient(135deg, #0f2438 0%, #102330 45%, #050a0f 100%);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+* {
+  box-sizing: border-box;
 }
