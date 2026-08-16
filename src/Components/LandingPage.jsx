@@ -1,6 +1,6 @@
 {/*Ryan Mbugua*/}
 import React, { useState } from "react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import legacyAutoLogo from "../assets/legacyauto.png";
 import toyotaLogo from "../assets/toyotaLogo.png";
 import nissanLogo from "../assets/nissanLogo.png";
@@ -14,11 +14,20 @@ const categories = [
   { name: "Subaru Parts", icon: subaruLogo, brand: "Subaru" },
 ];
 
+
 function LandingPage() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [search, setSearch] = useState("");
   const [categoriesOpen, setCategoriesOpen] = useState(false);
   const [cart, setCart] = useState(0);
+  const navigate = useNavigate();
+
+  const handleSearchSubmit = (event) => {
+    event.preventDefault();
+    if (search.trim()) {
+      navigate(`/shop?search=${encodeURIComponent(search.trim())}`);
+    }
+  };
 
   return (
     <div className="garage-page">
@@ -42,15 +51,15 @@ function LandingPage() {
             <span>Legacy</span><span>Auto</span>
           </a>
 
-          <div className="desktop-search">
+          <form className="desktop-search" onSubmit={handleSearchSubmit}>
             <input
               type="text"
               placeholder="Search for products, parts or services..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
             />
-            <button>⌕</button>
-          </div>
+            <button type="submit">⌕</button>
+          </form>
 
           <div className="header-right">
             <a href="tel:+254707177362" className="phone">
@@ -135,7 +144,7 @@ function LandingPage() {
         </nav>
 
         {/* MOBILE SEARCH */}
-        <div className="container mobile-search">
+        <form className="container mobile-search" onSubmit={handleSearchSubmit}>
           <input
             type="text"
             placeholder="Search products..."
@@ -143,7 +152,7 @@ function LandingPage() {
             onChange={(e) => setSearch(e.target.value)}
           />
           <button>⌕</button>
-        </div>
+        </form>
       </header>
 
       {/* HERO */}
