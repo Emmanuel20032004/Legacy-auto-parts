@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Link } from "react-router";
 import { Link, useNavigate } from "react-router";
 import legacyAutoLogo from "../assets/legacyauto.png";
 import toyotaLogo from "../assets/toyotaLogo.png";
@@ -14,11 +13,6 @@ const categories = [
   { name: "Subaru Parts", icon: subaruLogo, brand: "Subaru" },
 ];
 
-function LandingPage() {
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [search, setSearch] = useState("");
-  const [categoriesOpen, setCategoriesOpen] = useState(false);
-  const [cart, setCart] = useState(0);
 
 function LandingPage() {
   const [menuOpen, setMenuOpen] = useState(false);
