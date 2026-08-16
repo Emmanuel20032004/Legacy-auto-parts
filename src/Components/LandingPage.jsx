@@ -15,6 +15,7 @@ const categories = [
 function LandingPage() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [search, setSearch] = useState("");
+  const [categoriesOpen, setCategoriesOpen] = useState(false);
   const [cart, setCart] = useState(0);
 
   return (
@@ -31,9 +32,9 @@ function LandingPage() {
       <header className="header">
         <div className="container header-main">
           <a href="#" className="logo">
-            <span className="logo-box">AP</span>
+            <span className="logo-box">LA</span>
             <span>
-              Auto<span>Pro</span>
+              Legacy<span>Auto</span>
             </span>
           </a>
 
@@ -70,9 +71,30 @@ function LandingPage() {
         {/* NAVIGATION */}
         <nav className={`navigation ${menuOpen ? "show" : ""}`}>
           <div className="container nav-content">
-            <button className="category-button">
-              ☰ &nbsp; All Categories
-            </button>
+
+            <div className="category-dropdown">
+              <button
+                className="category-button"
+                onClick={() => setCategoriesOpen(!categoriesOpen)}
+              >
+                ☰ &nbsp; All Categories
+              </button>
+              {categoriesOpen && (
+                <div className="category-dropdown-menu">
+                {categories.map((category) => (
+                  <Link
+                    key={category.brand}
+                    to={`/shop?brand=${category.brand}`}
+                    onClick={() => setCategoriesOpen(false)}
+                  >
+                    {category.name}
+                  </Link>
+                ))}
+              </div>
+            )}
+            </div>
+
+            
 
             <div className="nav-links">
               <a href="#home" onClick={() => setMenuOpen(false)}>
@@ -345,9 +367,9 @@ function LandingPage() {
         <div className="container footer-grid">
           <div>
             <a href="#" className="logo footer-logo">
-              <span className="logo-box">AP</span>
+              <span className="logo-box">LA</span>
               <span>
-                Auto<span>Pro</span>
+                Legacy<span>Auto</span>
               </span>
             </a>
 
