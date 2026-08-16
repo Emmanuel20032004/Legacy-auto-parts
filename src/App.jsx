@@ -2,9 +2,9 @@
 import { BrowserRouter, Navigate, Routes, Route } from "react-router";
 import "./App.css";
 import { adminSessionKey } from "./auth/adminAuth.js";
-import AdminLogin from "./components/AdminLogin.jsx";
-import { AdminSidebar } from "./components/administratornavbar.jsx";
-import LandingPage from "./components/LandingPage.jsx";
+import AdminLogin from "./Components/AdminLogin.jsx";
+import { AdminSidebar } from "./Components/administratornavbar.jsx";
+import LandingPage from "./Components/LandingPage.jsx";
 import ProductList from "./products/ProductList.jsx";
 import ProductPage from "./products/ProductPage.jsx";
 
