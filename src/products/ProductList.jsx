@@ -1,66 +1,52 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { useSearchParams } from 'react-router'
+import useFetch from '../hooks/useFetch'
 
 function ProductList() {
-    const [products, setProducts] = useState([])
-    const [loading, setLoading] = useState(true)
-    const [error, setError] = useState(null)
-    const [searchTerm, setSearchTerm] = useState('')
+  const [searchTerm, setSearchTerm] = useState('')
+  const { data: products, loading, error } = useFetch('http://localhost:3000/products')
 
-    const [searchParams] = useSearchParams()
-    const brandFilter = searchParams.get('brand')
+  const [searchParams] = useSearchParams()
+  const brandFilter = searchParams.get('brand')
 
-    const filteredProducts = products.filter((product) => {
-        const matchesSearch = 
-            product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            product.brand.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredProducts = (products || []).filter((product) => {
+    const matchesSearch =
+      product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      product.brand.toLowerCase().includes(searchTerm.toLowerCase())
 
-        const matchesBrand = brandFilter
-            ? product.brand.toLowerCase() === brandFilter.toLowerCase()
-            : true
-        
-        return matchesSearch && matchesBrand
-    })
+    const matchesBrand = brandFilter
+      ? product.brand.toLowerCase() === brandFilter.toLowerCase()
+      : true
 
-    useEffect(() => {
-        fetch('http://localhost:3000/products')
-        .then((response) => response.json())
-        .then((data) => {
-            setProducts(data)
-            setLoading(false)
-        })
-        .catch((err) => {
-            setError(err.message)
-            setLoading(false)
-        })
-    }, [])
+    return matchesSearch && matchesBrand
+  })
 
-    return(
-        loading ? (
-            <p>Loading...</p>
-        ) : error ? (
-            <p>Error: {error}</p>
-        ) : (
-            <div>
-                <input
-                    type="text"
-                    placeholder="Search products..."
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                />
+  return (
+    loading ? (
+      <p>Loading...</p>
+    ) : error ? (
+      <p>Error: {error}</p>
+    ) : (
+      <div>
+        <input
+          type="text"
+          placeholder="Search products..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
 
-                {filteredProducts.map((product) => (
-                    <div key={product.id}>
-                        <img src={product.image} alt={product.name} />
-                        <h3>{product.name}</h3>
-                        <p>Brand: {product.brand}</p>
-                        <p>Price: ksh {product.price}</p>
-                        <p>{product.category}</p>
-                    </div>
-                ))}
-            </div>
-        )
+        {filteredProducts.map((product) => (
+          <div key={product.id}>
+            <img src={product.image} alt={product.name} />
+            <h3>{product.name}</h3>
+            <p>Brand: {product.brand}</p>
+            <p>Price: ksh {product.price}</p>
+            <p>{product.category}</p>
+          </div>
+        ))}
+      </div>
     )
+  )
 }
 
 export default ProductList
