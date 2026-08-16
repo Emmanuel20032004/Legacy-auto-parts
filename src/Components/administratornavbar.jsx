@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router";
+import useFetch from "../hooks/useFetch";
 import {
   BarChart3,
   ChevronDown,
@@ -21,69 +22,6 @@ const statCards = [
   { label: "total stock in inventory", value: "300 pieces" },
   { label: "Total sales monthly", value: "100,000" },
   { label: "Website logins", value: "3,000" },
-];
-
-const initialProducts = [
-  {
-    id: 1,
-    name: "Alternator",
-    vehicle: "Toyota Hilux 2KD",
-    partNo: "27060-0L050",
-    category: "Electrical",
-    quantity: 8,
-    price: "KSh 12,500",
-    tone: "silver",
-  },
-  {
-    id: 2,
-    name: "Headlight Right",
-    vehicle: "Toyota Prado 2015",
-    partNo: "81110-60F30",
-    category: "Lighting",
-    quantity: 5,
-    price: "KSh 18,000",
-    tone: "amber",
-  },
-  {
-    id: 3,
-    name: "Brake Disc Front",
-    vehicle: "Mitsubishi L200",
-    partNo: "4615A097",
-    category: "Braking",
-    quantity: 12,
-    price: "KSh 6,800",
-    tone: "steel",
-  },
-  {
-    id: 4,
-    name: "Side Mirror Left",
-    vehicle: "Nissan Navara D40",
-    partNo: "96302-EB300",
-    category: "Body parts",
-    quantity: 6,
-    price: "KSh 7,500",
-    tone: "charcoal",
-  },
-  {
-    id: 5,
-    name: "Radiator Assembly",
-    vehicle: "Ford Ranger 3.2",
-    partNo: "AB39-8005",
-    category: "Cooling",
-    quantity: 4,
-    price: "KSh 21,500",
-    tone: "blue",
-  },
-  {
-    id: 6,
-    name: "Suspension Arm",
-    vehicle: "Subaru Forester",
-    partNo: "20202-SC000",
-    category: "Suspension",
-    quantity: 9,
-    price: "KSh 9,200",
-    tone: "red",
-  },
 ];
 
 const initialUsers = [
@@ -160,7 +98,6 @@ const initialUsers = [
 ];
 
 const usersStorageKey = "legacy-auto-parts-users";
-const productsStorageKey = "legacy-auto-parts-products";
 
 const navSections = [
   {
@@ -182,14 +119,19 @@ const navSections = [
 
 export function AdminSidebar() {
   const [activeItem, setActiveItem] = useState("Dashboard");
-  const [products, setProducts] = useState(() => {
-    try {
-      const savedProducts = window.localStorage.getItem(productsStorageKey);
-      return savedProducts ? JSON.parse(savedProducts) : initialProducts;
-    } catch {
-      return initialProducts;
+  
+  const { data: fetchedProducts, loading, error } = useFetch(
+    "http://localhost:3000/products"
+  );
+
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    if (fetchedProducts) {
+      setProducts(fetchedProducts);
     }
-  });
+  }, [fetchedProducts]);
+
   const [users, setUsers] = useState(() => {
     try {
       const savedUsers = window.localStorage.getItem(usersStorageKey);
@@ -211,15 +153,19 @@ export function AdminSidebar() {
     role: "Customer",
   });
   const [editingUser, setEditingUser] = useState(null);
+  
   const [newProduct, setNewProduct] = useState({
     name: "",
-    vehicle: "",
-    partNo: "",
+    brand: "",
+    model: "",
     category: "",
+    partNo: "",
+    description: "",
     quantity: "",
     price: "",
     image: "",
   });
+
   const [expandedSections, setExpandedSections] = useState({
     DASHBOARDS: true,
     REPORTS: true,
@@ -237,12 +183,9 @@ export function AdminSidebar() {
     window.localStorage.setItem(usersStorageKey, JSON.stringify(users));
   }, [users]);
 
-  useEffect(() => {
-    window.localStorage.setItem(productsStorageKey, JSON.stringify(products));
-  }, [products]);
 
   const visibleProducts = products.filter((product) =>
-    [product.name, product.vehicle, product.partNo, product.category]
+    [product.name, product.brand, product.model, product.partNo, product.category]
       .join(" ")
       .toLowerCase()
       .includes(searchTerm.toLowerCase()),
@@ -260,47 +203,65 @@ export function AdminSidebar() {
 
   const addProduct = (event) => {
     event.preventDefault();
-    if (
-      !newProduct.name ||
-      !newProduct.vehicle ||
-      !newProduct.partNo ||
-      !newProduct.quantity
-    )
-      return;
+    if (!newProduct.name || !newProduct.brand || !newProduct.quantity) return;
 
-    setProducts((currentProducts) => [
-      ...currentProducts,
-      {
-        ...newProduct,
-        id: Date.now(),
-        quantity: Number(newProduct.quantity),
-        price: newProduct.price || "Price pending",
-        tone: "blue",
-      },
-    ]);
-    setNewProduct({
-      name: "",
-      vehicle: "",
-      partNo: "",
-      category: "",
-      quantity: "",
-      price: "",
-      image: "",
-    });
-    setShowAddProduct(false);
+    const productToSave = {
+      ...newProduct,
+      quantity: Number(newProduct.quantity),
+      price: Number(newProduct.price) || 0,
+      tone: "blue",
+    };
+
+    fetch("http://localhost:3000/products", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(productToSave),
+    })
+      .then((response) => response.json())
+      .then((savedProduct) => {
+        setProducts((currentProducts) => [...currentProducts, savedProduct]);
+        setNewProduct({
+          name: "",
+          brand: "",
+          model: "",
+          category: "",
+          partNo: "",
+          description: "",
+          quantity: "",
+          price: "",
+          image: "",
+        });
+        setShowAddProduct(false);
+      })
+      .catch((err) => console.error("Failed to add product:", err));
   };
+
+
 
   const updateProductPrice = (productId, price) => {
     const trimmedPrice = price.trim();
     if (!trimmedPrice) return;
-    setProducts((currentProducts) =>
-      currentProducts.map((product) =>
-        product.id === productId
-          ? { ...product, price: trimmedPrice }
-          : product,
-      ),
-    );
+
+    
+    fetch(`http://localhost:3000/products/${productId}`, {
+      method: "PATCH",
+      headers: { "content-Type": "application/json" },
+      body: JSON.stringify({ price: Number(trimmedPrice) }),
+    })
+      .then((response) => response.json())
+      .then(() => {
+        setProducts((currentProducts) =>
+          currentProducts.map((product) =>
+            product.id === productId
+              ? { ...product, price: trimmedPrice }
+              : product,
+          ),
+        );
+      })
+      .catch((err) => console.error("Failed to update price:", err));
   };
+
+
 
   const handleProductImage = (event) => {
     const file = event.target.files?.[0];
@@ -316,11 +277,17 @@ export function AdminSidebar() {
     reader.readAsDataURL(file);
   };
 
+
   const removeProduct = (product) => {
     if (!window.confirm(`Delete ${product.name} from inventory?`)) return;
-    setProducts((currentProducts) =>
-      currentProducts.filter((item) => item.id !== product.id),
-    );
+    fetch(`http://localhost:3000/products/${product.id}`, {
+      method: "DELETE",
+    })
+      .then(() => {
+        setProducts((currentProducts) =>
+          currentProducts.filter((item) => item.id !== product.id),
+      );
+    })
   };
 
   const removeUser = (user) => {
@@ -424,7 +391,11 @@ export function AdminSidebar() {
         </header>
 
         <main className="relative z-10 flex-1 overflow-auto px-10 py-10">
-          {activeItem === "Price change" ? (
+          {loading ? (
+            <p className="text-admin-muted">Loading products...</p>
+          ) : error ? (
+            <p className="text-red-300">Error loading products: {error}</p>
+          ) : activeItem === "Price change" ? (
             <section className="max-w-7xl">
               <div className="mb-7 flex flex-wrap items-end justify-between gap-4">
                 <div>
@@ -814,9 +785,11 @@ export function AdminSidebar() {
               <div className="grid gap-4 sm:grid-cols-2">
                 {[
                   { key: "name", label: "Product name" },
-                  { key: "vehicle", label: "Vehicle" },
+                  { key: "brand", label: "Brand" },
+                  { key: "model", label: "Model" },
                   { key: "partNo", label: "Part number" },
                   { key: "category", label: "Category" },
+                  { key: "description", label: "Description" },
                   { key: "quantity", label: "Quantity", type: "number" },
                   { key: "price", label: "Price" },
                 ].map((field) => (
