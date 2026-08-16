@@ -1,3 +1,13 @@
+import { AdminSidebar } from './Components/administratornavbar.jsx'
+import './App.css'
+
+function App() {
+  return (
+    <AdminSidebar />
+  )
+}
+
+export default App
 import { BrowserRouter, Routes, Route } from "react-router";
 import ProductPage from "./products/ProductPage";
 import ProductList from "./products/ProductList";
