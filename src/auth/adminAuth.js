@@ -1,3 +1,4 @@
+// Emmanuel wema
 export const adminSessionKey = 'legacy-auto-parts-admin-session'
 export const usersStorageKey = 'legacy-auto-parts-users'
 export const defaultAdminPassword = 'LegacyAdmin2026!'
