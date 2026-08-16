@@ -38,10 +38,7 @@ function ProductList() {
                 Shop inventory
               </h1>
             </div>
-            <Link
-              to="/"
-              className="inline-flex items-center justify-center rounded-full border border-admin-accent/40 bg-admin-accent px-5 py-3 text-sm font-bold text-admin-700 shadow-lg shadow-admin-accent/20 transition hover:-translate-y-0.5 hover:bg-white"
-            >
+            <Link to="/" className="btn btn-accent">
               Back to home
             </Link>
           </div>

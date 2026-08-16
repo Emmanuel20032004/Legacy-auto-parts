@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router";
+import legacyAutoLogo from "../assets/legacyauto.png";
 import toyotaLogo from "../assets/toyotaLogo.png";
 import nissanLogo from "../assets/nissanLogo.png";
 import fordLogo from "../assets/fordLogo.png";
@@ -32,10 +33,12 @@ function LandingPage() {
       <header className="header">
         <div className="container header-main">
           <a href="#" className="logo">
-            <span className="logo-box">LA</span>
-            <span>
-              Legacy<span>Auto</span>
-            </span>
+            <img
+              src={legacyAutoLogo}
+              alt="Legacy Auto"
+              style={{ height: "50px", width: "auto" }}
+            />
+            <span>Legacy</span><span>Auto</span>
           </a>
 
           <div className="desktop-search">
@@ -49,9 +52,9 @@ function LandingPage() {
           </div>
 
           <div className="header-right">
-            <a href="tel:+254700000000" className="phone">
+            <a href="tel:+254707177362" className="phone">
               <small>Call us</small>
-              <strong>+254 700 000 000</strong>
+              <strong>+254 707 177 362</strong>
             </a>
 
             <a href="#products" className="cart">
@@ -71,7 +74,6 @@ function LandingPage() {
         {/* NAVIGATION */}
         <nav className={`navigation ${menuOpen ? "show" : ""}`}>
           <div className="container nav-content">
-
             <div className="category-dropdown">
               <button
                 className="category-button"
@@ -81,20 +83,18 @@ function LandingPage() {
               </button>
               {categoriesOpen && (
                 <div className="category-dropdown-menu">
-                {categories.map((category) => (
-                  <Link
-                    key={category.brand}
-                    to={`/shop?brand=${category.brand}`}
-                    onClick={() => setCategoriesOpen(false)}
-                  >
-                    {category.name}
-                  </Link>
-                ))}
-              </div>
-            )}
+                  {categories.map((category) => (
+                    <Link
+                      key={category.brand}
+                      to={`/shop?brand=${category.brand}`}
+                      onClick={() => setCategoriesOpen(false)}
+                    >
+                      {category.name}
+                    </Link>
+                  ))}
+                </div>
+              )}
             </div>
-
-            
 
             <div className="nav-links">
               <a href="#home" onClick={() => setMenuOpen(false)}>
@@ -124,7 +124,7 @@ function LandingPage() {
 
             <a
               className="whatsapp-button"
-              href="https://wa.me/254700000000"
+              href="https://wa.me/+254707177362"
               target="_blank"
               rel="noreferrer"
             >
@@ -165,11 +165,11 @@ function LandingPage() {
             </p>
 
             <div className="hero-buttons">
-              <Link to="/shop" className="primary-button">
+              <Link to="/shop" className="btn btn-accent">
                 Shop Parts →
               </Link>
 
-              <a href="#services" className="outline-button">
+              <a href="#services" className="btn btn-outline">
                 Our Services
               </a>
             </div>
@@ -242,7 +242,7 @@ function LandingPage() {
             <p>Great prices on selected service and replacement parts.</p>
           </div>
 
-          <Link to="/shop" className="white-button">
+          <Link to="/shop" className="btn btn-light">
             Shop Deals →
           </Link>
         </div>
@@ -330,7 +330,7 @@ function LandingPage() {
               <li>✓ Fast customer support via WhatsApp</li>
             </ul>
 
-            <a href="#contact" className="dark-button">
+            <a href="#contact" className="btn btn-dark">
               Talk to our team →
             </a>
           </div>
@@ -355,7 +355,7 @@ function LandingPage() {
             href="https://wa.me/+254707177362"
             target="_blank"
             rel="noreferrer"
-            className="white-button"
+            className="btn btn-light"
           >
             Chat on WhatsApp →
           </a>
@@ -367,10 +367,11 @@ function LandingPage() {
         <div className="container footer-grid">
           <div>
             <a href="#" className="logo footer-logo">
-              <span className="logo-box">LA</span>
-              <span>
-                Legacy<span>Auto</span>
-              </span>
+              <img
+                src={legacyAutoLogo}
+                alt="Legacy Auto"
+                style={{ height: "50px", width: "auto" }}
+              />
             </a>
 
             <p>
