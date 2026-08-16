@@ -4,6 +4,7 @@ import {
   ChevronDown,
   Cog,
   Home,
+  LogOut,
   Pencil,
   PackagePlus,
   Search,
@@ -14,6 +15,8 @@ import {
   X,
   Zap,
 } from "lucide-react";
+import { useNavigate } from "react-router";
+import { adminSessionKey, initialUsers, usersStorageKey } from "../auth/adminAuth.js";
 
 const statCards = [
   { label: "Total sales anually", value: "500,000" },
@@ -31,20 +34,6 @@ const initialProducts = [
   { id: 6, name: "Suspension Arm", vehicle: "Subaru Forester", partNo: "20202-SC000", category: "Suspension", quantity: 9, price: "KSh 9,200", tone: "red" },
 ];
 
-const initialUsers = [
-  { id: 1, name: "Support Manager", phone: "+254 700 123 456", email: "support.manager@legacyauto.test", role: "Manager" },
-  { id: 2, name: "Brayan Mwangi", phone: "+254 711 284 903", email: "brayan.mwangi@legacyauto.test", role: "Admin" },
-  { id: 3, name: "Winnie Mwangi", phone: "+254 720 418 662", email: "winnie.mwangi@legacyauto.test", role: "Manager" },
-  { id: 4, name: "Viodundo Admin", phone: "+254 734 905 118", email: "viodundo.admin@legacyauto.test", role: "Admin" },
-  { id: 5, name: "AGNES MUMBI GITHU", phone: "721711437", email: "agnes.githu@legacyauto.test", role: "Customer" },
-  { id: 6, name: "AGNES NDINDA", phone: "0725645579", email: "agnes.ndinda@legacyauto.test", role: "Customer" },
-  { id: 7, name: "ALEX GITAU KANG'ETHE", phone: "727028344", email: "alex.kangethe@legacyauto.test", role: "Customer" },
-  { id: 8, name: "ALFRED KAMAU (VICTORIA)", phone: "727037423", email: "alfred.kamau@legacyauto.test", role: "Customer" },
-  { id: 9, name: "ALICE WANJIRU", phone: "720480846", email: "alice.wanjiru@legacyauto.test", role: "Customer" },
-  { id: 10, name: "ALLAN NJOROGE", phone: "796412692", email: "allan.njoroge@legacyauto.test", role: "Customer" },
-];
-
-const usersStorageKey = "legacy-auto-parts-users";
 const productsStorageKey = "legacy-auto-parts-products";
 
 const navSections = [
@@ -70,6 +59,7 @@ const navSections = [
 ];
 
 export function AdminSidebar() {
+  const navigate = useNavigate();
   const [activeItem, setActiveItem] = useState("Dashboard");
   const [products, setProducts] = useState(() => {
     try {
@@ -93,7 +83,7 @@ export function AdminSidebar() {
   const [userRoleFilter, setUserRoleFilter] = useState("All");
   const [showAddProduct, setShowAddProduct] = useState(false);
   const [showAddUser, setShowAddUser] = useState(false);
-  const [newUser, setNewUser] = useState({ name: "", phone: "", email: "", role: "Customer" });
+  const [newUser, setNewUser] = useState({ name: "", phone: "", email: "", password: "", role: "Customer" });
   const [editingUser, setEditingUser] = useState(null);
   const [newProduct, setNewProduct] = useState({ name: "", vehicle: "", partNo: "", category: "", quantity: "", price: "", image: "" });
   const [expandedSections, setExpandedSections] = useState({
@@ -192,13 +182,13 @@ export function AdminSidebar() {
 
   const addUser = (event) => {
     event.preventDefault();
-    if (!newUser.name || !newUser.phone || !newUser.email) return;
+    if (!newUser.name || !newUser.phone || !newUser.email || (newUser.role === "Admin" && !newUser.password)) return;
 
     setUsers((currentUsers) => [
       ...currentUsers,
       { ...newUser, id: Date.now() },
     ]);
-    setNewUser({ name: "", phone: "", email: "", role: "Customer" });
+    setNewUser({ name: "", phone: "", email: "", password: "", role: "Customer" });
     setShowAddUser(false);
   };
 
@@ -258,6 +248,18 @@ export function AdminSidebar() {
             );
           })}
         </nav>
+
+        <button
+          type="button"
+          onClick={() => {
+            sessionStorage.removeItem(adminSessionKey);
+            navigate("/admin/login", { replace: true });
+          }}
+          className="mt-6 flex w-full items-center gap-3 rounded px-4 py-3 text-sm font-medium text-[#b0d4e3] transition-colors hover:bg-[#1a3a52]/80 hover:text-white"
+        >
+          <LogOut size={18} />
+          <span>Sign out</span>
+        </button>
       </div>
 
       {/* RIGHT MAIN CONTENT */}
@@ -534,6 +536,9 @@ export function AdminSidebar() {
                 </label>
                 <label className="text-sm text-[#b0d4e3] sm:col-span-2">Email address
                   <input required type="email" value={newUser.email} onChange={(event) => setNewUser({ ...newUser, email: event.target.value })} className="mt-2 w-full rounded-lg border border-white/20 bg-[#080d10] px-3 py-3 text-[#f8fafc] caret-[#5cd9e0] placeholder:text-[#8aa8b7] outline-none focus:border-[#5cd9e0] focus:ring-1 focus:ring-[#5cd9e0]" style={{ color: "#f8fafc", WebkitTextFillColor: "#f8fafc" }} />
+                </label>
+                <label className="text-sm text-[#b0d4e3] sm:col-span-2">Password for Admin access
+                  <input required={newUser.role === "Admin"} type="password" value={newUser.password} onChange={(event) => setNewUser({ ...newUser, password: event.target.value })} placeholder="Required for Admin role" className="mt-2 w-full rounded-lg border border-white/20 bg-[#080d10] px-3 py-3 text-[#f8fafc] caret-[#5cd9e0] placeholder:text-[#8aa8b7] outline-none focus:border-[#5cd9e0] focus:ring-1 focus:ring-[#5cd9e0]" style={{ color: "#f8fafc", WebkitTextFillColor: "#f8fafc" }} />
                 </label>
                 <label className="text-sm text-[#b0d4e3] sm:col-span-2">Role
                   <select value={newUser.role} onChange={(event) => setNewUser({ ...newUser, role: event.target.value })} className="mt-2 w-full rounded-lg border border-white/20 bg-[#080d10] px-3 py-3 text-[#f8fafc] caret-[#5cd9e0] outline-none focus:border-[#5cd9e0] focus:ring-1 focus:ring-[#5cd9e0]" style={{ color: "#f8fafc", WebkitTextFillColor: "#f8fafc" }}>
