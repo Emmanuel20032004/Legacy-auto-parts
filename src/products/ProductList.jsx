@@ -8,7 +8,7 @@ function ProductList() {
     data: products,
     loading,
     error,
-  } = useFetch("hhttps://legacy-auto-parts.onrender.comttp://localhost:3000/products");
+  } = useFetch("https://legacy-auto-parts.onrender.com/products");
 
   const [searchParams] = useSearchParams();
   const brandFilter = searchParams.get("brand");
