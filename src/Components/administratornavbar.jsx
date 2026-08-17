@@ -54,7 +54,7 @@ export function AdminSidebar() {
   const [activeItem, setActiveItem] = useState("Dashboard");
   
   const { data: fetchedProducts, loading, error } = useFetch(
-    "http://localhost:3000/products"
+    "https://legacy-auto-parts.onrender.com/products"
   );
 
   const [products, setProducts] = useState([]);
@@ -147,7 +147,7 @@ export function AdminSidebar() {
       tone: "blue",
     };
 
-    fetch("http://localhost:3000/products", {
+    fetch("https://legacy-auto-parts.onrender.com/products", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(productToSave),
@@ -178,7 +178,7 @@ export function AdminSidebar() {
     if (!trimmedPrice) return;
 
     
-    fetch(`http://localhost:3000/products/${productId}`, {
+    fetch(`https://legacy-auto-parts.onrender.com/products/${productId}`, {
       method: "PATCH",
       headers: { "content-Type": "application/json" },
       body: JSON.stringify({ price: Number(trimmedPrice) }),
@@ -215,7 +215,7 @@ export function AdminSidebar() {
 
   const removeProduct = (product) => {
     if (!window.confirm(`Delete ${product.name} from inventory?`)) return;
-    fetch(`http://localhost:3000/products/${product.id}`, {
+    fetch(`https://legacy-auto-parts.onrender.com/products/${product.id}`, {
       method: "DELETE",
     })
       .then(() => {

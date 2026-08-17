@@ -7,7 +7,7 @@ function ProductPage() {
     data: product,
     loading,
     error,
-  } = useFetch(`http://localhost:3000/products/${id}`);
+  } = useFetch(`hhttps://legacy-auto-parts.onrender.comttp://localhost:3000/products/${id}`);
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-admin-900 via-[#102330] to-[#050a0f] px-4 py-10 sm:px-6 lg:px-10">
