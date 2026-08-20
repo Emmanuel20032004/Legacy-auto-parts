@@ -1,4 +1,4 @@
-{/*Emmanuel wema*/}
+{/* Emmanuel Wema */}
 import { useEffect, useState } from "react";
 import { Link } from "react-router";
 import useFetch from "../hooks/useFetch";
@@ -20,6 +20,7 @@ import {
 } from "lucide-react";
 import { useNavigate } from "react-router";
 import { API_BASE, adminSessionKey } from "../auth/adminAuth.js";
+import { adminSessionKey, initialUsers, usersStorageKey } from "../auth/adminAuth.js";
 
 const statCards = [
   { label: "Total sales anually", value: "500,000" },
@@ -55,6 +56,7 @@ export function AdminSidebar() {
   
   const { data: fetchedProducts, loading, error } = useFetch(
     `${API_BASE}/products`
+    "https://legacy-auto-parts.onrender.com/products"
   );
 
   const [products, setProducts] = useState([]);
@@ -79,11 +81,11 @@ export function AdminSidebar() {
   const [showAddProduct, setShowAddProduct] = useState(false);
   const [showAddUser, setShowAddUser] = useState(false);
   const [newUser, setNewUser] = useState({
-    name: "",
-    phone: "",
-    email: "",
-    password: "",
-    role: "Customer",
+    name: "", 
+    phone: "", 
+    email: "", 
+    password: "", 
+    role: "Customer" 
   });
 
   const [editingUser, setEditingUser] = useState(null);
@@ -142,6 +144,7 @@ export function AdminSidebar() {
     };
 
     fetch(`${API_BASE}/products`, {
+    fetch("https://legacy-auto-parts.onrender.com/products", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(productToSave),
@@ -173,6 +176,7 @@ export function AdminSidebar() {
 
     
     fetch(`${API_BASE}/products/${productId}`, {
+    fetch(`https://legacy-auto-parts.onrender.com/products/${productId}`, {
       method: "PATCH",
       headers: { "content-Type": "application/json" },
       body: JSON.stringify({ price: Number(trimmedPrice) }),
@@ -210,6 +214,7 @@ export function AdminSidebar() {
   const removeProduct = (product) => {
     if (!window.confirm(`Delete ${product.name} from inventory?`)) return;
     fetch(`${API_BASE}/products/${product.id}`, {
+    fetch(`https://legacy-auto-parts.onrender.com/products/${product.id}`, {
       method: "DELETE",
     })
       .then(() => {
@@ -983,23 +988,22 @@ export function AdminSidebar() {
                     style={{ color: "#f8fafc", WebkitTextFillColor: "#f8fafc" }} 
                   />
                 </label>
-                <label className="text-sm text-[#b0d4e3] sm:col-span-2">
-                  Role
-                  <select
-                    value={newUser.role}
-                    onChange={(event) =>
+                <label className="text-sm text-[#b0d4e3] sm:col-span-2">Role
+                  <select 
+                    value={newUser.role} 
+                    onChange={(event) => 
                       setNewUser({ ...newUser, role: event.target.value })
                     } 
                     className="mt-2 w-full rounded-lg border border-white/20 bg-[#080d10] px-3 py-3 text-[#f8fafc] caret-[#5cd9e0] outline-none focus:border-[#5cd9e0] focus:ring-1 focus:ring-[#5cd9e0]" 
                     style={{ color: "#f8fafc", WebkitTextFillColor: "#f8fafc" }}
                   >
+
                     <option>Customer</option>
                     <option>Manager</option>
                     <option>Admin</option>
                   </select>
                 </label>
               </div>
-              
               <button
                 type="submit"
                 className="mt-6 w-full rounded-lg bg-[#5cd9e0] py-3 font-bold text-[#102b40] transition hover:bg-white"

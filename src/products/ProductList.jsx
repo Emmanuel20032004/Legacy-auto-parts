@@ -1,19 +1,17 @@
-{/* Neo Mwashi */}
 import { useState } from "react";
 import { Link, useSearchParams } from "react-router";
 import useFetch from "../hooks/useFetch";
 
 function ProductList() {
-  const [searchParams] = useSearchParams();
-  const brandFilter = searchParams.get("brand");
-  const searchFromUrl = searchParams.get("search");
-
-  const [searchTerm, setSearchTerm] = useState(searchFromUrl || "");
+  const [searchTerm, setSearchTerm] = useState("");
   const {
     data: products,
     loading,
     error,
-  } = useFetch("http://localhost:3000/products");
+  } = useFetch("https://legacy-auto-parts.onrender.com/products");
+
+  const [searchParams] = useSearchParams();
+  const brandFilter = searchParams.get("brand");
 
   const filteredProducts = (products || []).filter((product) => {
     const matchesSearch =
