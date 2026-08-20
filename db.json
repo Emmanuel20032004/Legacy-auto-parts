@@ -131,5 +131,65 @@
       "id": "k4eD89rds28"
     }
   ],
+  "users": [
+    {
+      "id": "u1",
+      "name": "Emmanuel Admin",
+      "phone": "+254 734 905 118",
+      "email": "emmanuel.admin@legacyauto.test",
+      "password": "LegacyAdmin2026!",
+      "role": "Admin",
+      "verified": true
+    },
+    {
+      "id": "u2",
+      "name": "System Administrator",
+      "phone": "+254 700 000 000",
+      "email": "admin@legacyauto.test",
+      "password": "LegacyAdmin2026!",
+      "role": "Admin",
+      "verified": true
+    },
+    {
+      "id": "u3",
+      "name": "Support Manager",
+      "phone": "+254 700 123 456",
+      "email": "support.manager@legacyauto.test",
+      "password": "Manager2026!",
+      "role": "Manager",
+      "verified": true
+    },
+    {
+      "id": "u4",
+      "name": "Test Customer",
+      "phone": "+254 700 111 222",
+      "email": "customer@legacyauto.test",
+      "password": "Customer2026!",
+      "role": "Customer",
+      "verified": true
+    },
+    {
+      "name": "Jane Verifier",
+      "phone": "+254 711 000 999",
+      "email": "jane.verifier@legacyauto.test",
+      "password": "JanePass2026!",
+      "role": "Customer",
+      "verified": true,
+      "id": "dn2eNZQWGag"
+    }
+  ],
+  "orders": [
+    {
+      "productId": "1",
+      "productName": "Tie rod",
+      "price": 6000,
+      "quantity": 1,
+      "userId": "dn2eNZQWGag",
+      "userEmail": "jane.verifier@legacyauto.test",
+      "status": "pending",
+      "createdAt": "2026-08-20T15:27:25.590Z",
+      "id": "jTmZME8RKcQ"
+    }
+  ],
   "$schema": "./node_modules/json-server/schema.json"
 }
